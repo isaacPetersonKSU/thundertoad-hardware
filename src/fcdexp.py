@@ -1,31 +1,24 @@
-#!/usr/bin/freecadcmd
+#!/usr/bin/python3
 
-import argparse, os
+import argparse
+parser = argparse.ArgumentParser(description='creates STLs from freecad files')
+#1parser.add_argument("file", type="str", help="FILE.FCStd")
+#parser.add_argument("dest", type="str", help="output directory")
+parser.parse_args()
 
-# parse arguments
-parser = argparse.ArgumentParser(description='Process a .FCStd file.')
-parser.add_argument('file', help='the path to the .FCStd file')
-args = parser.parse_args()
 
-if args.file == None:
-    print(f'Error: no input file provided')
-    exit(1)
-
-# obtain path and extention
-split_path = os.path.splitext(args.file)
-path = split_path[0]
-extn = split_path[1]
-
-# check for correct filetype
-if extn != '.FCStd':
-    print(f'Error: Invalid file extension. Expected .FCStd extension.')
-    exit(1)
+file = '/home/ijp/thundertoad/hardware/freecad/unibody.FCStd'
+output = '/home/ijp/thundertoad/hardware/stl/output.stl'
 
 
 
-import FreeCAD, Mesh, sys, time
 
-# export stl
-doc = FreeCAD.open(path + '.FCStd')
-Mesh.export([doc.ActiveObject], path + '.stl')
-FreeCAD.closeDocument(doc.Name)
+
+
+
+# import subprocess
+# print("invokeing freecad")
+# args = ["./fcdexp_freecad.py", file, output]
+# result = subprocess.run(args, stdout=subprocess.PIPE)
+# if verbose=True:
+#    print(result.stdout.decode())
