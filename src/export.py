@@ -2,11 +2,11 @@
 import argparse, subprocess, os
 
 freecad_extention = '.FCStd'
-stl_extention = '.stl'
+ascii_stl_extention = '.ast'
 
 def export(input, output):
-    if not output.endswith(stl_extention): 
-        output = output.split('.')[0] + stl_extention
+    if not output.endswith(ascii_stl_extention): 
+        output = output.split('.')[0] + ascii_stl_extention
 
     if args.verbose: print("exporting " + input + " as " + output)
     freecad_args = ["/home/ijp/thundertoad/hardware/src/freecad_export_stl.py", input, output]
