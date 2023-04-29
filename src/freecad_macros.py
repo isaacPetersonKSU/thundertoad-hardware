@@ -12,10 +12,10 @@ def make_stl(input, output):
 def make_screenshot(input, output):
     print("{} >>---> {}".format(input, output))
 
-    FreeCADGui.runCommand("Std_Open", input)
-    Gui = FreeCADGui.getMainWindow()
-    screen = Gui.getScreen()
-    img = screen.grabWindow()
+    # FreeCADGui.runCommand("Std_Open", input)
+    # Gui = FreeCADGui.getMainWindow()
+    # screen = Gui.getScreen()
+    # img = screen.grabWindow()
 
-    img.save(output, "PNG")
-    os.system("xdg-open " + output)
+    # img.save(output, "PNG")
+    # os.system("xdg-open " + output)

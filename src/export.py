@@ -6,21 +6,22 @@ stl_extention = '.stl'
 image_extention = '.jpeg'
 
 def run_macro(macro, arguments):
-    arg_string = 'from freecad_macros import {}; {}({})'.format(macro, macro, '"' + '","'.join(arguments) + '"')
+    arg_string = '"' + '","'.join(arguments) + '"'
+    arg_string = 'from freecad_macros import {}; {}({})'.format(macro, macro, arg_string)
     result = subprocess.run(['freecadcmd', '-c', arg_string], stdout=subprocess.PIPE)
     if args.verbose: print(result.stdout.decode())
 
 
-def export(input, output):
-    output = output.split('.')[0] + stl_extention
-    try: open(output, "w").close() #freecad needs her files already created
+def export(input, mesh):
+    mesh = mesh.split('.')[0] + stl_extention
+    try: open(mesh, "w").close() #freecad needs her files already created
     except Exception as e: print("Error:", e)
-    run_macro('make_stl', [input, output])
+    run_macro('make_stl', [input, mesh])
 
 
-def screenshot(mesh, image):
+def screenshot(input, image):
     image = image.split('.')[0] + image_extention
-    run_macro('make_screenshot', [mesh, image])
+    run_macro('make_screenshot', [input, image])
 
 
 def find_em(source, dest):
