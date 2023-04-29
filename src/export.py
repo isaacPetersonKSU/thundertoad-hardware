@@ -3,6 +3,7 @@ import argparse, subprocess, os
 
 freecad_extention = '.FCStd'
 stl_extention = '.stl'
+image_extention = '.jpeg'
 
 def run_macro(macro, arguments):
     arg_string = 'from freecad_macros import {}; {}({})'.format(macro, macro, '"' + '","'.join(arguments) + '"')
@@ -17,15 +18,15 @@ def export(input, output):
     run_macro('make_stl', [input, output])
 
 
-def screenshot(stl):
-    mesh = stl.mesh.Mesh.from_file(stl)
-    # fig = plt.figure()
-
-
+def screenshot(mesh, image):
+    image = image.split('.')[0] + image_extention
+    run_macro('make_screenshot', [mesh, image])
 
 
 def find_em(source, dest):
-    if source.endswith(freecad_extention): export(source, dest)
+    if source.endswith(freecad_extention): 
+        export(source, dest)
+        screenshot(source, dest)
     elif os.path.isdir(source):
         if args.recursive:
             for child in os.listdir(source): 

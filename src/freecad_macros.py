@@ -1,6 +1,6 @@
 #!/usr/bin/freecadcmd
 
-import sys, FreeCAD, Mesh, Path
+import FreeCAD, Mesh, FreeCADGui, os
 
 def make_stl(input, output):
     print("{} >>---> {}".format(input, output))
@@ -9,5 +9,13 @@ def make_stl(input, output):
     Mesh.export([mesh], output)
     FreeCAD.closeDocument(doc.Name)
 
-def make_screenshot():
-    
+def make_screenshot(input, output):
+    print("{} >>---> {}".format(input, output))
+
+    FreeCADGui.runCommand("Std_Open", input)
+    Gui = FreeCADGui.getMainWindow()
+    screen = Gui.getScreen()
+    img = screen.grabWindow()
+
+    img.save(output, "PNG")
+    os.system("xdg-open " + output)
