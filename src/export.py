@@ -1,22 +1,28 @@
 #!/usr/bin/python3
-import argparse, subprocess, os, sys
+import argparse, subprocess, os
 
 freecad_extention = '.FCStd'
 stl_extention = '.stl'
 
+def run_macro(macro, arguments):
+    arg_string = 'from freecad_macros import {}; {}({})'.format(macro, macro, '"' + '","'.join(arguments) + '"')
+    result = subprocess.run(['freecadcmd', '-c', arg_string], stdout=subprocess.PIPE)
+    if args.verbose: print(result.stdout.decode())
+
+
 def export(input, output):
-    if not output.endswith(stl_extention): 
-        output = output.split('.')[0] + stl_extention
-
-    if args.verbose: print("exporting " + input + " as " + output)
-
+    output = output.split('.')[0] + stl_extention
     try: open(output, "w").close() #freecad needs her files already created
     except Exception as e: print("Error:", e)
+    run_macro('make_stl', [input, output])
 
-    freecad_args = ["./freecad_export_stl.py", input, output]
-    result = subprocess.run(freecad_args, stdout=subprocess.PIPE)
-    if args.verbose:
-        print(result.stdout.decode())
+
+def screenshot(stl):
+    mesh = stl.mesh.Mesh.from_file(stl)
+    # fig = plt.figure()
+
+
+
 
 def find_em(source, dest):
     if source.endswith(freecad_extention): export(source, dest)
@@ -24,8 +30,8 @@ def find_em(source, dest):
         if args.recursive:
             for child in os.listdir(source): 
                 find_em(os.path.join(source, child), os.path.join(dest, child))
-        else: print(source, "is a directory. Use -r")
-    elif args.verbose: print(source + " is not a freecad file or directory")
+        else: print("{} is a directory. Use -r".format(source))
+    elif args.verbose: print("{} is not a freecad file or dir".format(source))
 
 
 parser = argparse.ArgumentParser(description='creates STLs from freecad files')
@@ -39,7 +45,6 @@ if args.dest == None : args.dest = os.getcwd()
 
 args.source = os.path.abspath(args.source)
 args.dest = os.path.abspath(args.dest)
-
 
 if(args.source.endswith(freecad_extention)): 
     export(args.source, os.path.join(args.dest, os.path.basename(args.source)))
