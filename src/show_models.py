@@ -1,4 +1,4 @@
-import argparse
+import argparse, os
 
 parser = argparse.ArgumentParser(description='creates STLs from freecad files')
 parser.add_argument('target', type=str, help='markdown file to modify')

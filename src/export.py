@@ -1,19 +1,22 @@
 #!/usr/bin/python3
-import argparse, subprocess, os
+import argparse, subprocess, os, sys
 
 freecad_extention = '.FCStd'
-ascii_stl_extention = '.ast'
+stl_extention = '.stl'
 
 def export(input, output):
-    if not output.endswith(ascii_stl_extention): 
-        output = output.split('.')[0] + ascii_stl_extention
+    if not output.endswith(stl_extention): 
+        output = output.split('.')[0] + stl_extention
 
     if args.verbose: print("exporting " + input + " as " + output)
-    freecad_args = ["/home/ijp/thundertoad/hardware/src/freecad_export_stl.py", input, output]
+
+    try: open(output, "w").close() #freecad needs her files already created
+    except Exception as e: print("Error:", e)
+
+    freecad_args = ["./freecad_export_stl.py", input, output]
     result = subprocess.run(freecad_args, stdout=subprocess.PIPE)
     if args.verbose:
         print(result.stdout.decode())
-
 
 def find_em(source, dest):
     if source.endswith(freecad_extention): export(source, dest)
