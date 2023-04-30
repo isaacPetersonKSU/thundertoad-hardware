@@ -17,10 +17,12 @@ def chop(file_path, trigger_string):
 
 def append_img(doc_path, image_path):
     name = path.basename(path.splitext(image_path)[0])
+    rel_image_path = path.relpath(image_path, path.dirname(doc_path))
+    print("relitavie path = {}".format(rel_image_path))
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     f = open(doc_path, 'a')
 
-    f.write('![{}]({})\n'.format(name, image_path))
+    f.write('![{}]({}, "{}")\n'.format(name, rel_image_path, timestamp))
     f.close()
 
 
