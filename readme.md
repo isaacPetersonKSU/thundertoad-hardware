@@ -15,11 +15,6 @@ When changes are made to models, src/export.sh should be invoked. This exports a
 
 # Models
 ![unibody](img/unibody.png "port with built-in clip")
-![unibody](../img/unibody.png)
-![unibody](../img/unibody.png)
-![unibody](../img/unibody.png, "2023-04-30 18:18:47")
-![unibody](../img/unibody.png, "2023-04-30 18:20:23")
-![unibody](img/unibody.png, "2023-04-30 18:20:28")
-![unibody](img/unibody.png, "2023-04-30 18:20:29")
-![unibody](img/unibody.png, "2023-04-30 18:21:00")
-![unibody](img/unibody.png, "2023-04-30 18:21:01")
+![unibody](img/unibody.png "2023-04-30 18:22:22")
+![unibody](img/unibody.png "2023-04-30 18:22:23")
+![unibody](img/unibody.png "2023-04-30 18:22:24")

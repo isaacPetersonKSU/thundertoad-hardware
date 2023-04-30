@@ -22,7 +22,7 @@ def append_img(doc_path, image_path):
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     f = open(doc_path, 'a')
 
-    f.write('![{}]({}, "{}")\n'.format(name, rel_image_path, timestamp))
+    f.write('![{}]({} "{}")\n'.format(name, rel_image_path, timestamp))
     f.close()
 
 
@@ -36,4 +36,3 @@ args = parser.parse_args()
 args.img = path.join(args.img, "unibody.png")
 
 append_img(args.doc, args.img)
-
