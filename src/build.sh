@@ -1,10 +1,10 @@
 #!/bin/bash
 
-drawing='../drawings'
-mesh='../stl'
-photo='../image/sensor_housing.png'
+cad_path='../drawings'
+mesh_path='../stl'
+img_path='../image'
 
-./fcexport.py ${drawing} ${mesh}
+./fcexport.py ${cad_path} ${mesh_path}
 echo # freecad fucks up the text buffer, so we gotta insert a blank line
 
-# vtk render -E 0.1 -S 600,600 -F example.png ../stl/sensor_housing.FCStd
+./stlcapture.py ${mesh_path} ${img_path}
