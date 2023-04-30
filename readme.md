@@ -15,3 +15,5 @@ When changes are made to models, src/export.sh should be invoked. This exports a
 
 # Models
 ![unibody](img/unibody.png "port with built-in clip")
+![unibody](../img/unibody.png)
+![unibody](../img/unibody.png)
