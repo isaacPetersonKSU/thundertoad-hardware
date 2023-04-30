@@ -13,4 +13,4 @@ invoke freecad's cli to export all cad files as STL models in /stl.
 
 
 # Models
-![unibody](img/unibody.png.png "port with built-in clip")
+![unibody](img/unibody.png "port with built-in clip")
