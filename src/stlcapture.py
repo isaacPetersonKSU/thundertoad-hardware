@@ -1,15 +1,11 @@
 #!/usr/bin/python3
 
-# import argparse
+mesh_extention = '.stl'
+image_extention = '.png'
 
-# parser = argparse.ArgumentParser(prog='fcexport', description='export as stl')
-# parser.add_argument('mesh', type=str, help='stl file to capture')
-# parser.add_argument('img', type=str, nargs='?', help='output')
-# args = parser.parse_args()
-
-
-# print(args.mesh, args.img)
-
+import argparse
+import os
+import os.path as path
 
 import numpy
 from stl import mesh
@@ -17,7 +13,7 @@ from mpl_toolkits import mplot3d
 from matplotlib import pyplot
 from matplotlib.colors import LightSource
 
-def plotSTL(filename):
+def plotSTL(mesh_file, image_file):
     # Create a new plot
     figure = pyplot.figure(figsize=(20,20))
     axes = figure.add_subplot(111, projection='3d')
@@ -27,7 +23,7 @@ def plotSTL(filename):
     axes.set_facecolor('none')
 
     # Load the STL mesh
-    stlmesh = mesh.Mesh.from_file(filename)
+    stlmesh = mesh.Mesh.from_file(mesh_file)
     polymesh = mplot3d.art3d.Poly3DCollection(stlmesh.vectors)
 
     # Create light source
@@ -54,50 +50,27 @@ def plotSTL(filename):
     lims = [[ctrs[i] - ptp, ctrs[i] + ptp] for i in range(3)]
     axes.auto_scale_xyz(*lims)
 
-    pyplot.savefig('foo.png')
+    pyplot.savefig(image_file)
+
+def find_em(input, output):
+    if input.endswith(mesh_extention):
+        print("exporting {} as {}".format(input, output))
+        plotSTL(input, path.splitext(output)[0] + image_extention)
+    elif path.isdir(input):
+        if path.isdir(output):
+            for child in os.listdir(input):
+                find_em(os.path.join(input, child), os.path.join(output, child))
+        else: print("output cannot be a file if input is a dir")
+    else: print("skipping unknown file {}".format(input))
 
 
-plotSTL('../stl/sensor_housing.stl')
+parser = argparse.ArgumentParser(prog='fcexport', description='export as stl')
+parser.add_argument('mesh_file', type=str, help='stl file to capture')
+parser.add_argument('img', type=str, nargs='?', help='output')
+args = parser.parse_args()
 
 
+if args.img == None: args.img = os.getcwd()
 
 
-
-
-
-# from stl import mesh
-# from mpl_toolkits import mplot3d
-# from matplotlib import pyplot as plt
-# from matplotlib.colors import LightSource
-# import numpy as np
-
-# # Create a new plot
-# figure = plt.figure()
-# axes = figure.add_subplot(projection='3d')
-
-# # Load the STL files and add the vectors to the plot
-# your_mesh = mesh.Mesh.from_file('../stl/sensor_housing.stl')
-# axes.add_collection3d(mplot3d.art3d.Poly3DCollection(your_mesh.vectors))
-
-# # Auto scale to the mesh size
-# scale = your_mesh.points.flatten()
-# axes.auto_scale_xyz(scale, scale, scale)
-
-# # remove nerdy stuff from background
-# axes.set_axis_off()
-# axes.set_facecolor('none')
-
-# # color
-# blue = np.array([0., 0., 1.])
-# rgb = np.tile(blue, (axes.shape[0], axes.shape[1], 1))
-
-# # lights
-# light = LightSource(azdeg=225, altdeg=45)
-# illuminated_surface = light.shade_rgb(rgb, axes)
-
-# # camera
-# axes.view_init(elev=66, azim=-48)
-# axes.dist = 10
-
-# # action
-# plt.show()
+find_em(args.mesh_file, args.img)
