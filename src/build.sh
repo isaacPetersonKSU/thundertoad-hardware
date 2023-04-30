@@ -11,3 +11,4 @@ echo # freecad fucks up the text buffer, so we gotta insert a blank line
 # generate PNGs
 ./stlcapture.py ${mesh_path} ${img_path}
 
+# put images in the readme
