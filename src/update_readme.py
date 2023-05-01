@@ -27,11 +27,15 @@ def format_pic(image_path):
 
 def update(doc_path, image_dir):
     chop(doc_path, models_header)
+
+    print(image_dir)
+    print(doc_path)
     
     file=open(doc_path, 'a')
     file.write(models_header)
     for child in os.listdir(image_dir):
-        relative_path = path.relpath(child, path.dirname(doc_path))
+        relative_path = path.relpath(path.join(image_dir, child), path.dirname(doc_path))
+        print(relative_path)
         file.write(format_pic(relative_path))
     file.close
 
