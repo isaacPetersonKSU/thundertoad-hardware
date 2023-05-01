@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 
 import argparse
+import os
 import os.path as path
 import datetime
+
+models_header = "# Models\n"
 
 
 # if trigger_string is in file_path, everthing after will be chopped of
@@ -15,16 +18,22 @@ def chop(file_path, trigger_string):
         f.truncate()
     f.close()
 
-def append_img(doc_path, image_path):
+def format_pic(image_path):
     name = path.basename(path.splitext(image_path)[0])
-    rel_image_path = path.relpath(image_path, path.dirname(doc_path))
-    print("relitavie path = {}".format(rel_image_path))
+    print("relitavie path = {}".format(image_path))
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    f = open(doc_path, 'a')
+    return '![{}]({} "{}")\n'.format(name, image_path, timestamp)
 
-    f.write('![{}]({} "{}")\n'.format(name, rel_image_path, timestamp))
-    f.close()
 
+def update(doc_path, image_dir):
+    chop(doc_path, models_header)
+    
+    file=open(doc_path, 'a')
+    file.write(models_header)
+    for child in os.listdir(image_dir):
+        relative_path = path.relpath(child, path.dirname(doc_path))
+        file.write(format_pic(relative_path))
+    file.close
 
 
 parser = argparse.ArgumentParser(prog='updatereadme', 
@@ -33,6 +42,4 @@ parser.add_argument('doc', type=str, help='markdown file to edit')
 parser.add_argument('img', type=str, help='file to put in readme')
 args = parser.parse_args()
 
-args.img = path.join(args.img, "unibody.png")
-
-append_img(args.doc, args.img)
+update(args.doc, args.img)
