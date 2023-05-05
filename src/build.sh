@@ -13,3 +13,6 @@ read_me='../readme.md'
 
 ./update_readme.py ${read_me} ${img_path} > /dev/null \
     && echo 'images embedded' || echo 'error embedding images'
+
+
+git add --a && git commit -m "auto commit from build script"
