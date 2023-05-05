@@ -15,4 +15,4 @@ read_me='../readme.md'
     && echo 'images embedded' || echo 'error embedding images'
 
 
-git add --a && git commit -m "auto commit from build script"
+git add --a
