@@ -13,6 +13,6 @@ repo without being burdened with storing bulky CAD files.
 When changes are made to models, src/export.sh should be invoked. This exports all models in stl format and automatically embeds an image of them to this readme file
 
 # Models
-![fan_housing](img/fan_housing.png "2023-05-12 11:32:14")
-![only_air](img/only_air.png "2023-05-12 11:32:14")
-![drill_guide](img/drill_guide.png "2023-05-12 11:32:14")
+![fan_housing](img/fan_housing.png "2023-05-12 11:32:32")
+![only_air](img/only_air.png "2023-05-12 11:32:32")
+![drill_guide](img/drill_guide.png "2023-05-12 11:32:32")
