@@ -5,6 +5,9 @@ mesh_path='../stl'
 img_path='../img'
 read_me='../readme.md'
 
+rm "${mesh_path}/*"
+rm "${img_path}/*"
+
 ./fcexport.py ${cad_path} ${mesh_path} > /dev/null \
     && echo 'meshes exported' || echo 'error exporting meshes'
 
@@ -16,3 +19,6 @@ read_me='../readme.md'
 
 
 git add --a
+git commit -m "auto build commit"
+git push
+
