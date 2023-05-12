@@ -14,10 +14,8 @@ When changes are made to models, src/export.sh should be invoked. This exports a
 
 # Models
 # fan_housing
-![fan_housing](img/fan_housing.png "2023-05-12 11:49:56")
-# only_air
-![only_air](img/only_air.png "2023-05-12 11:49:56")
+![fan_housing](img/fan_housing.png "2023-05-12 11:51:38")
 # port_clip
-![port_clip](img/port_clip.png "2023-05-12 11:49:56")
+![port_clip](img/port_clip.png "2023-05-12 11:51:38")
 # drill_guide
-![drill_guide](img/drill_guide.png "2023-05-12 11:49:56")
+![drill_guide](img/drill_guide.png "2023-05-12 11:51:38")
